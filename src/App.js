@@ -5,6 +5,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InfoBox from './components/InfoBox';
 import Map from './components/Map';
+import Table from './components/Table';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
@@ -14,6 +15,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState('worldwide');
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData,setTableData] = useState([]);
 
   const allCountries = "https://disease.sh/v3/covid-19/countries";
 
@@ -37,6 +39,7 @@ function App() {
                   name: country.country,   // United Stated, United Kingdom
                   value: country.countryInfo.iso2 // uk, usa, fr
                 }));
+                setTableData(data);
                 setCountries(countriesList); 
             })
             .catch( error => console.log(error))
@@ -113,6 +116,7 @@ function App() {
       <Card className="app__right">
         <CardContent>
             <h3>Live Cases by Country</h3>
+            <Table countries={tableData}/>
         </CardContent>
     </Card>
 
