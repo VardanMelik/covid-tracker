@@ -6,6 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InfoBox from './components/InfoBox';
 import Map from './components/Map';
 import Table from './components/Table';
+import LineGraph from './components/LineGraph';
+import { sortData } from './util';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
@@ -39,7 +41,10 @@ function App() {
                   name: country.country,   // United Stated, United Kingdom
                   value: country.countryInfo.iso2 // uk, usa, fr
                 }));
-                setTableData(data);
+
+                // Sort our data
+                const sortedData = sortData(data);
+                setTableData(sortedData);
                 setCountries(countriesList); 
             })
             .catch( error => console.log(error))
@@ -117,6 +122,8 @@ function App() {
         <CardContent>
             <h3>Live Cases by Country</h3>
             <Table countries={tableData}/>
+            <h3>Worldwide new cases</h3>
+            <LineGraph/>
         </CardContent>
     </Card>
 
